@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base resets ─────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: #0d0f14; }
+  ::-webkit-scrollbar-thumb { background: #1e2235; border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: #2d3555; }
+
+  ::selection { background: rgba(0, 229, 255, 0.2); color: #e8eaf6; }
+}
+
+/* ─── Component utilities ─────────────────────────────────── */
+@layer components {
+  /* Glass panel */
+  .glass {
+    @apply bg-panel border border-panel-border backdrop-blur-sm;
+  }
+
+  /* Glowing accent border */
+  .border-glow {
+    border-color: rgba(0, 229, 255, 0.35);
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.12);
+  }
+
+  /* Monospace label */
+  .label-mono {
+    @apply font-mono text-xs tracking-widest uppercase text-text-secondary;
+  }
+
+  /* Terminal-style blinking cursor */
+  .cursor::after {
+    content: '▋';
+    @apply animate-blink text-accent-cyan;
+  }
+
+  /* Shimmer loading effect */
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.0) 0%,
+      rgba(0,229,255,0.06) 50%,
+      rgba(255,255,255,0.0) 100%
+    );
+    background-size: 200% auto;
+    @apply animate-shimmer;
+  }
+
+  /* Subtle grid background */
+  .bg-grid {
+    background-image: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Status dot */
+  .status-dot {
+    @apply inline-block w-2 h-2 rounded-full;
+  }
+  .status-dot.online  { @apply bg-accent-green shadow-glow-sm; }
+  .status-dot.offline { @apply bg-text-muted; }
+  .status-dot.busy    { @apply bg-accent-amber; }
+}
+
+/* ─── Mermaid diagram overrides ───────────────────────────── */
+.mermaid svg {
+  background: transparent !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* ─── Plotly overrides ────────────────────────────────────── */
+.js-plotly-plot .plotly .modebar {
+  background: transparent !important;
+}
+.js-plotly-plot .plotly .modebar-btn path {
+  fill: #7986cb !important;
+}
